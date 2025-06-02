@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Phân Tích MD5 - Tài Xỉu 🔥</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(to bottom, #1a0000, #330000);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    .centered-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 30px;
+    }
+
+    .container {
+      background: #111;
+      border-radius: 25px;
+      padding: 50px;
+      width: 600px;
+      text-align: center;
+      box-shadow: 0 0 40px #ff2e2e;
+      border: 2px solid #ff3c3c;
+      transform: scale(1.1);
+    }
+
+    h1 {
+      color: #ffcc00;
+      font-size: 28px;
+      margin-bottom: 35px;
+    }
+
+    input {
+      width: 90%;
+      padding: 12px;
+      margin-bottom: 25px;
+      font-size: 16px;
+      border: 2px solid #ff4d4d;
+      background-color: black;
+      color: #00ffcc;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+
+    button {
+      background: linear-gradient(to right, #ff4d4d, #ff0000);
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ff1a1a;
+    }
+
+    .hash-output, .result-box {
+      background: #000;
+      border-radius: 15px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 0 20px #ff1a1a;
+      border: 1px solid #ff3333;
+    }
+
+    .hash-output {
+      color: #00ffcc;
+      font-size: 14px;
+      word-break: break-word;
+    }
+
+    .result-box {
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .result-box span {
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="centered-container">
+    <div class="container">
+      <h1>🎰 PHÂN TÍCH MD5 - TÀI XỈU 🎲</h1>
+      <input type="text" id="md5input" placeholder="Nhập MD5 hash...">
+      <br>
+      <button onclick="phanTich()">Phân Tích Ngay</button>
+
+      <div class="hash-output" id="hashOutput"></div>
+      <div class="result-box" id="ketqua"></div>
+    </div>
+  </div>
+
+  <script>
+    function phanTich() {
+      const input = document.getElementById("md5input").value.trim().toLowerCase();
+      const ketqua = document.getElementById("ketqua");
+      const hashOutput = document.getElementById("hashOutput");
+
+      if (input.length !== 32 && input.length !== 64) {
+        ketqua.innerHTML = "❌ MD5 không hợp lệ!";
+        ketqua.style.color = "red";
+        return;
+      }
+
+      fetch("/api/phantich", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ md5: input })
+      })
+      .then(res => res.json())
+      .then(data => {
+        hashOutput.innerHTML = "🔍 <strong>MD5 Hash:</strong><br>" + data.md5;
+        ketqua.innerHTML = "Kết quả: <span>" + data.ketqua + "</span>";
+        ketqua.style.color = "white";
+      })
+      .catch(() => {
+        ketqua.innerHTML = "⚠️ Lỗi kết nối tới server!";
+        ketqua.style.color = "orange";
+      });
+    }
+  </script>
+
+</body>
+</html>
