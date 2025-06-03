@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tool Phân Tích MD5 Phuc Phan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+    body {
+      font-family: 'Orbitron', monospace, Arial, sans-serif;
+      background: #1a0000;
+      color: #fff;
+      padding: 20px;
+      user-select: none;
+    }
+
+    /* Input Styling - Shared */
+    input[type="text"] {
+      width: 100%;
+      max-width: 100%;
+      padding: 15px 20px;
+      font-size: 1.3rem;
+      border: none;
+      border-radius: 40px;
+      background: #330000;
+      color: #ffcccc;
+      box-shadow: 0 0 10px #ff1a1a inset, 0 0 10px #ff0000;
+      text-align: center;
+      outline: none;
+      transition: background 0.3s ease;
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: block;
+    }
+
+    input[type="text"]::placeholder {
+      color: #ff9999;
+      font-weight: 600;
+    }
+
+    input[type="text"]:focus {
+      background: #4d0000;
+      box-shadow: 0 0 15px #ff0000 inset, 0 0 20px #ff4d4d;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #ff1a1a, #ff0000);
+      color: #fff;
+      box-shadow: 0 0 15px #ff4d4d, 0 0 40px #ff0000;
+      transition: background 0.6s ease;
+      display: block;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
+    }
+
+    #loginBox, #toolBox {
+      max-width: 450px;
+      margin: 40px auto;
+      border-radius: 15px;
+      padding: 30px 35px;
+      box-shadow: 0 0 15px #ff0000, 0 0 30px #ff1a1a, inset 0 0 20px #ff4d4d;
+      background: linear-gradient(145deg, #ff0000, #ff4d4d);
+      text-align: center;
+      position: relative;
+    }
+
+    #toolBox {
+      display: none;
+      background: #330000;
+      box-shadow: 0 0 20px #ff1a1a, inset 0 0 30px #ff4d4d;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff1a1a;
+    }
+
+    #outputBox {
+      background: #4d0000;
+      border-radius: 20px;
+      padding: 20px;
+      margin-top: 25px;
+      box-shadow: 0 0 25px #ff1a1a inset;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .result span {
+      font-weight: 900;
+      font-size: 1.4rem;
+      text-shadow: 0 0 15px #ff0000;
+    }
+
+    #historyList {
+      max-height: 180px;
+      overflow-y: auto;
+      margin-top: 20px;
+      padding-left: 15px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      border-radius: 15px;
+      background: #660000;
+      box-shadow: inset 0 0 15px #ff4d4d;
+      text-align: left;
+    }
+
+    #historyList li {
+      padding: 5px 8px;
+      border-bottom: 1px solid #ff0000;
+      color: #ffcccc;
+    }
+
+    #stats {
+      margin-top: 18px;
+      font-weight: 700;
+      text-align: center;
+      font-size: 1rem;
+      color: #ffcccc;
+      text-shadow: 0 0 10px #ff4d4d;
+    }
+
+    /* Bong bóng chat */
+    #chatBubble {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: linear-gradient(45deg, #ff4d4d, #ff0000);
+      color: white;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-weight: bold;
+      box-shadow: 0 0 15px #ff0000;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    #chatBubble:hover {
+      background: linear-gradient(45deg, #ff0000, #ff4d4d);
+    }
+
+    #popupChat {
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background: #330000;
+      color: white;
+      width: 260px;
+      padding: 15px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #ff1a1a;
+      display: none;
+      z-index: 999;
+    }
+
+    #popupHeader {
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ff4d4d;
+    }
+
+    #popupBody {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    #popupBody button {
+      margin-top: 10px;
+      width: 100%;
+      padding: 10px;
+      border-radius: 25px;
+      background: #ff1a1a;
+      color: white;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff4d4d;
+    }
+
+    #popupBody button:hover {
+      background: #ff4d4d;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginBox">
+    <h2>Nhập Key ❕</h2>
+    <input id="keyInput" type="text" placeholder="Nhập key của bạn..." />
+    <button onclick="kiemTraKey()">Kiểm tra Key</button>
+  </div>
+
+  <div id="toolBox">
+    <h2>Phân Tích MD5</h2>
+    <input id="md5input" type="text" placeholder="Nhập chuỗi MD5..." />
+    <button onclick="phanTichVIP()">Phân Tích</button>
+    <div id="outputBox"></div>
+
+    <h3>Lịch sử phân tích</h3>
+    <ul id="historyList"></ul>
+    <div id="stats"></div>
+    <button onclick="clearHistory()">Xóa lịch sử phiên</button>
+  </div>
+
+  <div id="chatBubble" onclick="togglePopup()">💬 Mua Key</div>
+  <div id="popupChat">
+    <div id="popupHeader">🔥 MUA KEY TOOL VIP</div>
+    <div id="popupBody">
+      <p></p>
+      <p>💬 Liên hệ Zalo : <strong>0964 943 392</strong></p>
+      <p>🎯 Tool Phân Tích MD5 Chính Xác 99%</p>
+      <button onclick="togglePopup()">Đóng</button>
+    </div>
+  </div>
+
+  <script>
+    const keys = {
+      "PP-9X2KD-Q74LV-RW81M-TZJ5C": "2025-06-04",
+      "PP-A3XLM-F29GE-W18PY-K7VQD": "2025-06-10",
+      "PP-H7V6M-WP5XZ-KF94T-3B2QL": "2025-07-01",
+      "PP-NY1QE-JW63M-RZ8KC-L4PVT": "2025-08-01",
+      "PP-X93ML-B57KW-Y2VTR-PH6QE": "2025-09-01",
+      "PP-Q27VJ-XPM68-LY9CW-TK3ZF": "2025-10-01",
+      "PP-MK1YC-R38WP-ZTFX9-L72QJ": "2025-11-01",
+      "PP-W46YM-JK9QF-XTV2L-R3BPC": "2025-12-01",
+      "PP-B9K4M-Q2XPL-JYW37-TFZCV": "2026-01-01",
+      "PP-Z2PTX-KV38L-R4YM9-WQ6JF": "2026-02-01",
+      "PP-JL6MP-Y9XQW-KF2ZR-83VTC": "2026-03-01"
+    };
+
+    function kiemTraKey() {
+      const key = document.getElementById("keyInput").value.trim();
+      const expiry = keys[key];
+      if (!expiry) {
+        alert("❌ Key không hợp lệ !");
+        return;
+      }
+
+      const now = new Date();
+      const expires = new Date(expiry + "T23:59:59");
+      if (now > expires) {
+        alert("🔒 Key đã hết hạn !");
+        return;
+      }
+
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("toolBox").style.display = "block";
+    }
+
+    let totalCount = 0, taiCount = 0, xiuCount = 0;
+
+    function phanTichVIP() {
+      const input = document.getElementById("md5input").value.trim().toLowerCase();
+      const outputBox = document.getElementById("outputBox");
+      const historyList = document.getElementById("historyList");
+
+      if (!/^[a-f0-9]{32}$/.test(input) && !/^[a-f0-9]{64}$/.test(input)) {
+        outputBox.innerHTML = `<div style="color:#ff6666;">❌ Chuỗi MD5 không hợp lệ !</div>`;
+        return;
+      }
+
+      const lastChar = input[input.length - 1];
+      const val = parseInt(lastChar, 16);
+      const result = (val >= 8) ? 'TÀI' : 'XỈU';
+      const percent = (Math.random() * 10 + 90).toFixed(2);
+
+      const output = `
+        <div><strong>🔍 Ký tự cuối HEX :</strong> ${lastChar.toUpperCase()}</div>
+        <div class="result">💥 Kết quả dự đoán : <span>${result}</span></div>
+        <div>🎯 Độ chính xác : <span>${percent}%</span></div>
+      `;
+
+      outputBox.innerHTML = output;
+
+      const li = document.createElement("li");
+      li.innerText = `[${new Date().toLocaleTimeString()}] ${input} → ${result} (${percent}%)`;
+      historyList.prepend(li);
+
+      totalCount++;
+      if (result === 'TÀI') taiCount++;
+      else xiuCount++;
+
+      updateStats();
+    }
+
+    function updateStats() {
+      document.getElementById("stats").textContent =
+        `Tổng số phân tích: ${totalCount} | Số TÀI: ${taiCount} | Số XỈU: ${xiuCount}`;
+    }
+
+    function clearHistory() {
+      document.getElementById("historyList").innerHTML = '';
+      document.getElementById("outputBox").innerHTML = '';
+      totalCount = taiCount = xiuCount = 0;
+      updateStats();
+    }
+
+    function togglePopup() {
+      const popup = document.getElementById("popupChat");
+      popup.style.display = (popup.style.display === "block") ? "none" : "block";
+    }
+  </script>
+
+</body>
+</html>
