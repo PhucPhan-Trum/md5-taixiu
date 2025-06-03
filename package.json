@@ -1,0 +1,12 @@
+{
+  "name": "md5-tool-ui-protected",
+  "version": "1.0.0",
+  "description": "Tool Phân Tích MD5 - Giao diện gốc người dùng, bảo vệ key bằng API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
