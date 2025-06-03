@@ -1,0 +1,13 @@
+
+{
+  "name": "md5-tool-vip",
+  "version": "1.0.0",
+  "description": "Tool Phân Tích MD5 Tài/Xỉu của Phuc Phan",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
