@@ -227,22 +227,7 @@
   </div>
 
   <script>
-    fetch("api/api-check-key.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key: document.getElementById("keyInput").value.trim() })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (!data.valid) {
-        alert("❌ " + data.error);
-        return;
-      }
-      document.getElementById("loginBox").style.display = "none";
-      document.getElementById("toolBox").style.display = "block";
-    })
-    .catch(() => alert("Lỗi kết nối tới máy chủ")); // Đã chuyển xác thực sang API
-    /* const keys = {
+    const keys = {
       "PP-9X2KD-Q74LV-RW81M-TZJ5C": "2025-06-04",
       "PP-A3XLM-F29GE-W18PY-K7VQD": "2025-06-10",
       "PP-H7V6M-WP5XZ-KF94T-3B2QL": "2025-07-01",
