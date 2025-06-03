@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tool Phân Tích MD5 Phuc Phan</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;vi&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot; /&gt;
+  &lt;title&gt;Tool Phân Tích MD5 Phuc Phan&lt;/title&gt;
+  &lt;style&gt;
+    @import url(&#39;https://fonts.googleapis.com/css2?family=Orbitron&amp;display=swap&#39;);
     body {
-      font-family: 'Orbitron', monospace, Arial, sans-serif;
+      font-family: &#39;Orbitron&#39;, monospace, Arial, sans-serif;
       background: #1a0000;
       color: #fff;
       padding: 20px;
@@ -15,7 +15,7 @@
     }
 
     /* Input Styling - Shared */
-    input[type="text"] {
+    input[type=&quot;text&quot;] {
       width: 100%;
       max-width: 100%;
       padding: 15px 20px;
@@ -33,12 +33,12 @@
       display: block;
     }
 
-    input[type="text"]::placeholder {
+    input[type=&quot;text&quot;]::placeholder {
       color: #ff9999;
       font-weight: 600;
     }
 
-    input[type="text"]:focus {
+    input[type=&quot;text&quot;]:focus {
       background: #4d0000;
       box-shadow: 0 0 15px #ff0000 inset, 0 0 20px #ff4d4d;
     }
@@ -193,126 +193,126 @@
     #popupBody button:hover {
       background: #ff4d4d;
     }
-  </style>
-</head>
-<body>
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
 
-  <div id="loginBox">
-    <h2>Nhập Key ❕</h2>
-    <input id="keyInput" type="text" placeholder="Nhập key của bạn..." />
-    <button onclick="kiemTraKey()">Kiểm tra Key</button>
-  </div>
+  &lt;div id=&quot;loginBox&quot;&gt;
+    &lt;h2&gt;Nhập Key ❕&lt;/h2&gt;
+    &lt;input id=&quot;keyInput&quot; type=&quot;text&quot; placeholder=&quot;Nhập key của bạn...&quot; /&gt;
+    &lt;button onclick=&quot;kiemTraKey()&quot;&gt;Kiểm tra Key&lt;/button&gt;
+  &lt;/div&gt;
 
-  <div id="toolBox">
-    <h2>Phân Tích MD5</h2>
-    <input id="md5input" type="text" placeholder="Nhập chuỗi MD5..." />
-    <button onclick="phanTichVIP()">Phân Tích</button>
-    <div id="outputBox"></div>
+  &lt;div id=&quot;toolBox&quot;&gt;
+    &lt;h2&gt;Phân Tích MD5&lt;/h2&gt;
+    &lt;input id=&quot;md5input&quot; type=&quot;text&quot; placeholder=&quot;Nhập chuỗi MD5...&quot; /&gt;
+    &lt;button onclick=&quot;phanTichVIP()&quot;&gt;Phân Tích&lt;/button&gt;
+    &lt;div id=&quot;outputBox&quot;&gt;&lt;/div&gt;
 
-    <h3>Lịch sử phân tích</h3>
-    <ul id="historyList"></ul>
-    <div id="stats"></div>
-    <button onclick="clearHistory()">Xóa lịch sử phiên</button>
-  </div>
+    &lt;h3&gt;Lịch sử phân tích&lt;/h3&gt;
+    &lt;ul id=&quot;historyList&quot;&gt;&lt;/ul&gt;
+    &lt;div id=&quot;stats&quot;&gt;&lt;/div&gt;
+    &lt;button onclick=&quot;clearHistory()&quot;&gt;Xóa lịch sử phiên&lt;/button&gt;
+  &lt;/div&gt;
 
-  <div id="chatBubble" onclick="togglePopup()">💬 Mua Key</div>
-  <div id="popupChat">
-    <div id="popupHeader">🔥 MUA KEY TOOL VIP</div>
-    <div id="popupBody">
-      <p></p>
-      <p>💬 Liên hệ Zalo : <strong>0964 943 392</strong></p>
-      <p>🎯 Tool Phân Tích MD5 Chính Xác 99%</p>
-      <button onclick="togglePopup()">Đóng</button>
-    </div>
-  </div>
+  &lt;div id=&quot;chatBubble&quot; onclick=&quot;togglePopup()&quot;&gt;💬 Mua Key&lt;/div&gt;
+  &lt;div id=&quot;popupChat&quot;&gt;
+    &lt;div id=&quot;popupHeader&quot;&gt;🔥 MUA KEY TOOL VIP&lt;/div&gt;
+    &lt;div id=&quot;popupBody&quot;&gt;
+      &lt;p&gt;&lt;/p&gt;
+      &lt;p&gt;💬 Liên hệ Zalo : &lt;strong&gt;0964 943 392&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;🎯 Tool Phân Tích MD5 Chính Xác 99%&lt;/p&gt;
+      &lt;button onclick=&quot;togglePopup()&quot;&gt;Đóng&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
 
-  <script>
+  &lt;script&gt;
     const keys = {
-      "PP-9X2KD-Q74LV-RW81M-TZJ5C": "2025-06-04",
-      "PP-A3XLM-F29GE-W18PY-K7VQD": "2025-06-10",
-      "PP-H7V6M-WP5XZ-KF94T-3B2QL": "2025-07-01",
-      "PP-NY1QE-JW63M-RZ8KC-L4PVT": "2025-08-01",
-      "PP-X93ML-B57KW-Y2VTR-PH6QE": "2025-09-01",
-      "PP-Q27VJ-XPM68-LY9CW-TK3ZF": "2025-10-01",
-      "PP-MK1YC-R38WP-ZTFX9-L72QJ": "2025-11-01",
-      "PP-W46YM-JK9QF-XTV2L-R3BPC": "2025-12-01",
-      "PP-B9K4M-Q2XPL-JYW37-TFZCV": "2026-01-01",
-      "PP-Z2PTX-KV38L-R4YM9-WQ6JF": "2026-02-01",
-      "PP-JL6MP-Y9XQW-KF2ZR-83VTC": "2026-03-01"
+      &quot;PP-9X2KD-Q74LV-RW81M-TZJ5C&quot;: &quot;2025-06-04&quot;,
+      &quot;PP-A3XLM-F29GE-W18PY-K7VQD&quot;: &quot;2025-06-10&quot;,
+      &quot;PP-H7V6M-WP5XZ-KF94T-3B2QL&quot;: &quot;2025-07-01&quot;,
+      &quot;PP-NY1QE-JW63M-RZ8KC-L4PVT&quot;: &quot;2025-08-01&quot;,
+      &quot;PP-X93ML-B57KW-Y2VTR-PH6QE&quot;: &quot;2025-09-01&quot;,
+      &quot;PP-Q27VJ-XPM68-LY9CW-TK3ZF&quot;: &quot;2025-10-01&quot;,
+      &quot;PP-MK1YC-R38WP-ZTFX9-L72QJ&quot;: &quot;2025-11-01&quot;,
+      &quot;PP-W46YM-JK9QF-XTV2L-R3BPC&quot;: &quot;2025-12-01&quot;,
+      &quot;PP-B9K4M-Q2XPL-JYW37-TFZCV&quot;: &quot;2026-01-01&quot;,
+      &quot;PP-Z2PTX-KV38L-R4YM9-WQ6JF&quot;: &quot;2026-02-01&quot;,
+      &quot;PP-JL6MP-Y9XQW-KF2ZR-83VTC&quot;: &quot;2026-03-01&quot;
     };
 
     function kiemTraKey() {
-      const key = document.getElementById("keyInput").value.trim();
+      const key = document.getElementById(&quot;keyInput&quot;).value.trim();
       const expiry = keys[key];
       if (!expiry) {
-        alert("❌ Key không hợp lệ !");
+        alert(&quot;❌ Key không hợp lệ !&quot;);
         return;
       }
 
       const now = new Date();
-      const expires = new Date(expiry + "T23:59:59");
-      if (now > expires) {
-        alert("🔒 Key đã hết hạn !");
+      const expires = new Date(expiry + &quot;T23:59:59&quot;);
+      if (now &gt; expires) {
+        alert(&quot;🔒 Key đã hết hạn !&quot;);
         return;
       }
 
-      document.getElementById("loginBox").style.display = "none";
-      document.getElementById("toolBox").style.display = "block";
+      document.getElementById(&quot;loginBox&quot;).style.display = &quot;none&quot;;
+      document.getElementById(&quot;toolBox&quot;).style.display = &quot;block&quot;;
     }
 
     let totalCount = 0, taiCount = 0, xiuCount = 0;
 
     function phanTichVIP() {
-      const input = document.getElementById("md5input").value.trim().toLowerCase();
-      const outputBox = document.getElementById("outputBox");
-      const historyList = document.getElementById("historyList");
+      const input = document.getElementById(&quot;md5input&quot;).value.trim().toLowerCase();
+      const outputBox = document.getElementById(&quot;outputBox&quot;);
+      const historyList = document.getElementById(&quot;historyList&quot;);
 
-      if (!/^[a-f0-9]{32}$/.test(input) && !/^[a-f0-9]{64}$/.test(input)) {
-        outputBox.innerHTML = `<div style="color:#ff6666;">❌ Chuỗi MD5 không hợp lệ !</div>`;
+      if (!/^[a-f0-9]{32}$/.test(input) &amp;&amp; !/^[a-f0-9]{64}$/.test(input)) {
+        outputBox.innerHTML = `&lt;div style=&quot;color:#ff6666;&quot;&gt;❌ Chuỗi MD5 không hợp lệ !&lt;/div&gt;`;
         return;
       }
 
       const lastChar = input[input.length - 1];
       const val = parseInt(lastChar, 16);
-      const result = (val >= 8) ? 'TÀI' : 'XỈU';
+      const result = (val &gt;= 8) ? &#39;TÀI&#39; : &#39;XỈU&#39;;
       const percent = (Math.random() * 10 + 90).toFixed(2);
 
       const output = `
-        <div><strong>🔍 Ký tự cuối HEX :</strong> ${lastChar.toUpperCase()}</div>
-        <div class="result">💥 Kết quả dự đoán : <span>${result}</span></div>
-        <div>🎯 Độ chính xác : <span>${percent}%</span></div>
+        &lt;div&gt;&lt;strong&gt;🔍 Ký tự cuối HEX :&lt;/strong&gt; ${lastChar.toUpperCase()}&lt;/div&gt;
+        &lt;div class=&quot;result&quot;&gt;💥 Kết quả dự đoán : &lt;span&gt;${result}&lt;/span&gt;&lt;/div&gt;
+        &lt;div&gt;🎯 Độ chính xác : &lt;span&gt;${percent}%&lt;/span&gt;&lt;/div&gt;
       `;
 
       outputBox.innerHTML = output;
 
-      const li = document.createElement("li");
+      const li = document.createElement(&quot;li&quot;);
       li.innerText = `[${new Date().toLocaleTimeString()}] ${input} → ${result} (${percent}%)`;
       historyList.prepend(li);
 
       totalCount++;
-      if (result === 'TÀI') taiCount++;
+      if (result === &#39;TÀI&#39;) taiCount++;
       else xiuCount++;
 
       updateStats();
     }
 
     function updateStats() {
-      document.getElementById("stats").textContent =
+      document.getElementById(&quot;stats&quot;).textContent =
         `Tổng số phân tích: ${totalCount} | Số TÀI: ${taiCount} | Số XỈU: ${xiuCount}`;
     }
 
     function clearHistory() {
-      document.getElementById("historyList").innerHTML = '';
-      document.getElementById("outputBox").innerHTML = '';
+      document.getElementById(&quot;historyList&quot;).innerHTML = &#39;&#39;;
+      document.getElementById(&quot;outputBox&quot;).innerHTML = &#39;&#39;;
       totalCount = taiCount = xiuCount = 0;
       updateStats();
     }
 
     function togglePopup() {
-      const popup = document.getElementById("popupChat");
-      popup.style.display = (popup.style.display === "block") ? "none" : "block";
+      const popup = document.getElementById(&quot;popupChat&quot;);
+      popup.style.display = (popup.style.display === &quot;block&quot;) ? &quot;none&quot; : &quot;block&quot;;
     }
-  </script>
+  &lt;/script&gt;
 
-</body>
-</html>
+&lt;/body&gt;
+&lt;/html&gt;
